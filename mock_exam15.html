@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python Mock Exam</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #667eea;
+      }
+
+      .header h1 {
+        color: #333;
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .exam-info {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+      }
+
+      .question {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 25px;
+        transition: all 0.3s ease;
+      }
+
+      .question:hover {
+        border-color: #667eea;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+      }
+
+      .question h3 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+      }
+
+      .code-block {
+        background: #2d3748;
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        overflow-x: auto;
+        font-family: "Courier New", monospace;
+        border-left: 4px solid #667eea;
+      }
+
+      .input-group {
+        margin-top: 15px;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+
+      .input-group input:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .result {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .correct {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .incorrect {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .submit-btn {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: block;
+        margin: 30px auto;
+        min-width: 200px;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+      }
+
+      .score-display {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        margin-top: 30px;
+        font-size: 1.2em;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .question {
+        animation: fadeIn 0.5s ease-out;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🐍 Python Mock Exam</h1>
+        <p>Test your Python knowledge with these challenging questions</p>
+      </div>
+
+      <div class="exam-info">
+        <h3>📋 Exam Instructions</h3>
+        <ul style="margin-top: 10px; padding-left: 20px">
+          <li>
+            Answer each question by typing exactly what Python would output
+          </li>
+          <li>Be precise with formatting, spaces, and quotation marks</li>
+          <li>Pay attention to data types and syntax</li>
+          <li>Click "Submit Exam" when you're done to see your results</li>
+        </ul>
+      </div>
+
+      <form id="examForm">
+        <!-- Question 1 -->
+        <div class="question">
+          <h3>Question 1: List Slicing</h3>
+          <p>What will the following code print?</p>
+          <div class="code-block">
+            numbers = [0, 1, 2, 3, 4, 5] print(numbers[4:0:-2])
+          </div>
+          <div class="input-group">
+            <label for="q1">Your answer:</label>
+            <input
+              type="text"
+              id="q1"
+              name="q1"
+              placeholder="Type exactly what Python would display"
+            />
+          </div>
+          <div id="result1" class="result hidden"></div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+          <h3>Question 2: Nested Dictionary</h3>
+          <p>What will the following code print?</p>
+          <div class="code-block">
+            data = {'user': {'name': 'John', 'age': 30}} print(data.get('user',
+            {}).get('city', 'Unknown'))
+          </div>
+          <div class="input-group">
+            <label for="q2">Your answer:</label>
+            <input
+              type="text"
+              id="q2"
+              name="q2"
+              placeholder="Type exactly what Python would display"
+            />
+          </div>
+          <div id="result2" class="result hidden"></div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+          <h3>Question 3: Function with Default Arguments</h3>
+          <p>What will the following code print?</p>
+          <div class="code-block">
+            def func(a, b=[]): b.append(a) return b print(func(1))
+            print(func(2))
+          </div>
+          <div class="input-group">
+            <label for="q3">Your answer (separate lines with semicolon):</label>
+            <input
+              type="text"
+              id="q3"
+              name="q3"
+              placeholder="e.g., [1]; [2, 1]"
+            />
+          </div>
+          <div id="result3" class="result hidden"></div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+          <h3>Question 4: Set Operations</h3>
+          <p>What will the following code print?</p>
+          <div class="code-block">
+            set1 = {1, 2, 3, 4} set2 = {3, 4, 5, 6} print(sorted(set1 ^ set2))
+          </div>
+          <div class="input-group">
+            <label for="q4">Your answer:</label>
+            <input
+              type="text"
+              id="q4"
+              name="q4"
+              placeholder="Type exactly what Python would display"
+            />
+          </div>
+          <div id="result4" class="result hidden"></div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question">
+          <h3>Question 5: List Comprehension</h3>
+          <p>What will the following code print?</p>
+          <div class="code-block">
+            result = [x for x in range(10) if x % 2 == 0 if x > 5] print(result)
+          </div>
+          <div class="input-group">
+            <label for="q5">Your answer:</label>
+            <input
+              type="text"
+              id="q5"
+              name="q5"
+              placeholder="Type exactly what Python would display"
+            />
+          </div>
+          <div id="result5" class="result hidden"></div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question">
+          <h3>Question 6: String Methods</h3>
+          <p>What will the following code print?</p>
+          <div class="code-block">
+            text = " Hello World " print(text.strip().replace("World",
+            "Python").upper())
+          </div>
+          <div class="input-group">
+            <label for="q6">Your answer:</label>
+            <input
+              type="text"
+              id="q6"
+              name="q6"
+              placeholder="Type exactly what Python would display"
+            />
+          </div>
+          <div id="result6" class="result hidden"></div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question">
+          <h3>Question 7: Exception Handling</h3>
+          <p>What will the following code print?</p>
+          <div class="code-block">
+            try: result = 10 / 0 except ZeroDivisionError: print("Error caught")
+            else: print("No error") finally: print("Always executed")
+          </div>
+          <div class="input-group">
+            <label for="q7">Your answer (separate lines with semicolon):</label>
+            <input
+              type="text"
+              id="q7"
+              name="q7"
+              placeholder="e.g., Error caught; Always executed"
+            />
+          </div>
+          <div id="result7" class="result hidden"></div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question">
+          <h3>Question 8: Lambda and Map</h3>
+          <p>What will the following code print?</p>
+          <div class="code-block">
+            numbers = [1, 2, 3, 4, 5] result = list(map(lambda x: x**2 if x % 2
+            == 0 else x, numbers)) print(result)
+          </div>
+          <div class="input-group">
+            <label for="q8">Your answer:</label>
+            <input
+              type="text"
+              id="q8"
+              name="q8"
+              placeholder="Type exactly what Python would display"
+            />
+          </div>
+          <div id="result8" class="result hidden"></div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question">
+          <h3>Question 9: Class and Inheritance</h3>
+          <p>What will the following code print?</p>
+          <div class="code-block">
+            class Parent: def __init__(self): self.value = "parent" def
+            show(self): print(self.value) class Child(Parent): def
+            __init__(self): super().__init__() self.value = "child" obj =
+            Child() obj.show()
+          </div>
+          <div class="input-group">
+            <label for="q9">Your answer:</label>
+            <input
+              type="text"
+              id="q9"
+              name="q9"
+              placeholder="Type exactly what Python would display"
+            />
+          </div>
+          <div id="result9" class="result hidden"></div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question">
+          <h3>Question 10: Dictionary Comprehension</h3>
+          <p>What will the following code print?</p>
+          <div class="code-block">
+            data = ['apple', 'banana', 'cherry'] result = {item: len(item) for
+            item in data if len(item) > 5} print(result)
+          </div>
+          <div class="input-group">
+            <label for="q10">Your answer:</label>
+            <input
+              type="text"
+              id="q10"
+              name="q10"
+              placeholder="Type exactly what Python would display"
+            />
+          </div>
+          <div id="result10" class="result hidden"></div>
+        </div>
+
+        <button type="submit" class="submit-btn">🎯 Submit Exam</button>
+      </form>
+
+      <div id="scoreDisplay" class="score-display hidden">
+        <h2>📊 Your Results</h2>
+        <div id="scoreText"></div>
+        <div id="feedback" style="margin-top: 15px"></div>
+      </div>
+    </div>
+
+    <script>
+      const answers = {
+        q1: "[4, 2]",
+        q2: "Unknown",
+        q3: "[1]; [1, 2]",
+        q4: "[1, 2, 5, 6]",
+        q5: "[6, 8]",
+        q6: "HELLO PYTHON",
+        q7: "Error caught; Always executed",
+        q8: "[1, 4, 3, 16, 5]",
+        q9: "child",
+        q10: "{'banana': 6, 'cherry': 6}",
+      };
+
+      const explanations = {
+        q1: "Slice [4:0:-2] starts at index 4, goes to index 0 (exclusive), stepping backwards by 2",
+        q2: "The key 'city' doesn't exist in the nested dict, so get() returns the default 'Unknown'",
+        q3: "Mutable default arguments are shared between function calls - dangerous Python gotcha!",
+        q4: "^ is symmetric difference - elements in either set but not both",
+        q5: "Multiple if conditions filter for even numbers greater than 5",
+        q6: "Chain methods: strip() removes whitespace, replace() changes text, upper() capitalizes",
+        q7: "Exception is caught, else block skipped, finally always runs",
+        q8: "Lambda squares even numbers, leaves odd numbers unchanged",
+        q9: "Child class overrides parent's value in __init__",
+        q10: "Dict comprehension filters strings longer than 5 characters and maps to their lengths",
+      };
+
+      document
+        .getElementById("examForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          let score = 0;
+          const totalQuestions = Object.keys(answers).length;
+
+          for (let i = 1; i <= totalQuestions; i++) {
+            const userAnswer = document.getElementById(`q${i}`).value.trim();
+            const correctAnswer = answers[`q${i}`];
+            const resultDiv = document.getElementById(`result${i}`);
+
+            if (userAnswer === correctAnswer) {
+              score++;
+              resultDiv.className = "result correct";
+              resultDiv.textContent = "✅ Correct!";
+            } else {
+              resultDiv.className = "result incorrect";
+              resultDiv.textContent = `❌ Incorrect. Expected: ${correctAnswer}`;
+            }
+
+            resultDiv.classList.remove("hidden");
+
+            // Add explanation
+            const explanation = document.createElement("div");
+            explanation.style.marginTop = "10px";
+            explanation.style.fontSize = "14px";
+            explanation.style.fontStyle = "italic";
+            explanation.textContent = explanations[`q${i}`];
+            resultDiv.appendChild(explanation);
+          }
+
+          // Show score
+          const percentage = Math.round((score / totalQuestions) * 100);
+          const scoreDisplay = document.getElementById("scoreDisplay");
+          const scoreText = document.getElementById("scoreText");
+          const feedback = document.getElementById("feedback");
+
+          scoreText.innerHTML = `
+                <h3>Score: ${score}/${totalQuestions} (${percentage}%)</h3>
+            `;
+
+          // Provide feedback based on score
+          let feedbackText = "";
+          if (percentage >= 90) {
+            feedbackText =
+              "🎉 Excellent! You have a strong grasp of Python concepts!";
+          } else if (percentage >= 80) {
+            feedbackText = "👍 Great job! Just a few concepts to review.";
+          } else if (percentage >= 70) {
+            feedbackText = "✅ Good work! Some areas need more practice.";
+          } else if (percentage >= 60) {
+            feedbackText = "📚 Keep studying! You're on the right track.";
+          } else {
+            feedbackText =
+              "💪 Don't give up! Review the concepts and try again.";
+          }
+
+          feedback.textContent = feedbackText;
+          scoreDisplay.classList.remove("hidden");
+
+          // Scroll to results
+          scoreDisplay.scrollIntoView({ behavior: "smooth" });
+        });
+
+      // Add some interactivity to inputs
+      document.querySelectorAll("input").forEach((input) => {
+        input.addEventListener("keypress", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            const inputs = Array.from(document.querySelectorAll("input"));
+            const currentIndex = inputs.indexOf(this);
+            if (currentIndex < inputs.length - 1) {
+              inputs[currentIndex + 1].focus();
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
